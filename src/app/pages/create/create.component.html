@@ -1,0 +1,122 @@
+
+<div class="container">
+  <div [hidden]="submitted">
+    <form (ngSubmit)="onSubmit()" #create="ngForm">
+      <br>
+    <h1>Include Bike</h1>
+      <br>
+    <div class="form-group">
+      <label for="partNumber">Model Number</label>
+      <input type="number" class="form-control" id="partNumber"
+             required
+             [(ngModel)]="bike.partNumber" name="partNumber" #partNumber="ngModel">
+      <div [hidden]="partNumber.valid"
+           class="alert alert-danger">
+        Model Number is required
+      </div>
+      <br>
+
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <input type="text" class="form-control" id="description"
+               required
+               [(ngModel)]="bike.description" name="description"  #description="ngModel">
+        <div [hidden]="description.valid"
+             class="alert alert-danger">
+          Description is required
+        </div>
+      </div>
+      <br>
+
+      </div>
+      <div class="form-group">
+        <label for="sizeFrame">Size of Bicycle Frame</label>
+        <input type="number" class="form-control" id="sizeFrame"
+               [(ngModel)]="bike.sizeFrame" name="sizeFrame" #sizeFrame="ngModel">
+      </div>
+      <br>
+
+      <div class="form-group">
+        <label for="sizeWheel">Wheel Size</label>
+        <input type="number" class="form-control" id="sizeWheel"
+               [(ngModel)]="bike.sizeWheel" name="sizeWheel" #sizeWheel="ngModel">
+      </div>
+      <br>
+
+      <div class="form-group">
+        <label>Is Mountain Bike?</label><br>
+        <label class="radio-inline">
+          <input type="radio" [(ngModel)]="bike.isMTB" value="true" name="ismtb" required> Sim
+        </label>
+        <label class="radio-inline" style="margin-left: 10px;">
+          <input type="radio" [(ngModel)]="bike.isMTB" value="false" name="ismtb" required> Não
+        </label>
+        <div [hidden]="bike.isMTB" class="alert alert-danger">
+          This selection is required
+        </div>
+      </div>
+      <br>
+
+      <mat-form-field>
+        <mat-label>Date of Manufacture</mat-label>
+        <input matInput [matDatepicker]="picker"
+               required
+               [(ngModel)]="bike.createdDate" name="createdDate">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <br>
+      <br>
+
+      <button type="submit" class="btn btn-success" [disabled]="!create.form.valid">Include</button>
+
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+    </form>
+  </div>
+
+  <div [hidden]="!submitted">
+    <h2>Data review:</h2>
+    <div class="row">
+      <div class="col-xs-3">Model Number</div>
+      <div class="col-xs-9">{{ bike.partNumber }}</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">Description</div>
+      <div class="col-xs-9">{{ bike.description }}</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">Size of Bicycle Frame</div>
+      <div class="col-xs-9">{{ bike.sizeFrame }}</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">Wheel Size</div>
+      <div class="col-xs-9">{{ bike.sizeWheel }}</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">Is Mountain Bike?</div>
+      <div class="col-xs-9">{{ bike.isMTB }}</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">Date of Manufacture</div>
+      <div class="col-xs-9">{{ bike.createdDate }}</div>
+    </div>
+  </div>
+</div>
+<div>
+  <form>
+  </form>
+</div>
+<hr>
+<style>
+  .no-style .ng-valid {
+    border-left: 1px  solid #CCC
+  }
+  .no-style .ng-invalid {
+    border-left: 1px  solid #CCC
+  }
+</style>
