@@ -12,8 +12,8 @@
   </ul>
 </div>
 
-<div class="container">
-  <div [hidden]="!submittedSearch">
+<div class="container" [hidden]="!submittedSearch">
+  <div>
     <form (ngSubmit)="onSubmit()" #update="ngForm">
       <br>
       <h1>Update Bike {{idToUpdate}}</h1>

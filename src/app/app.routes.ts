@@ -9,7 +9,7 @@ import {ReadComponent} from "./pages/read/read.component";
 
 
 export const routes: Routes = [
-  {path:'', component: ListComponent},
+  {path:'list', component: ListComponent},
   {path:'about', component: AboutComponent},
   {path:'contact', component: ContactComponent},
   {path:'create', component: CreateComponent},

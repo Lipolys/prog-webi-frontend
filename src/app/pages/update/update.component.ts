@@ -43,11 +43,11 @@ export class UpdateComponent {
   onSubmitSearch() {
     this.bikeService.getById(this.idToUpdate).subscribe(value => {
       this.bike = value;
-      this.submittedSearch = true;
     } , error => {
       console.log("Erro:", JSON.stringify(error));
       alert(`Erro ao buscar o dados:${error.error}`);
     });
+    this.submittedSearch = true;
   }
 
   onSubmit() {
