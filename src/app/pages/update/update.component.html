@@ -1,1 +1,94 @@
-<p>update works!</p>
+
+<div class="container" [hidden]="submittedSearch">
+  <h1>Search a Bike to Update </h1>
+  <ul>
+    <br>
+    <form  (ngSubmit)="onSubmitSearch()" #update="ngForm" class="d-flex" role="search" >
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+             [(ngModel)]="idToUpdate" name="search" required>
+      <button class="btn btn-outline-success" type="submit" >Search</button>
+    </form>
+    <br>
+  </ul>
+</div>
+
+<div class="container">
+  <div [hidden]="!submittedSearch">
+    <form (ngSubmit)="onSubmit()" #update="ngForm">
+      <br>
+      <h1>Update Bike {{idToUpdate}}</h1>
+      <br>
+      <div class="form-group">
+        <label for="partNumber">Model Number</label>
+        <input type="number" class="form-control" id="partNumber"
+               required
+               [(ngModel)]="bike.partNumber" name="partNumber" #partNumber="ngModel">
+        <div [hidden]="partNumber.valid"
+             class="alert alert-danger">
+          Model Number is required
+        </div>
+        <br>
+
+
+        <div class="form-group">
+          <label for="description">Description</label>
+          <input type="text" class="form-control" id="description"
+                 required
+                 [(ngModel)]="bike.description" name="description"  #description="ngModel">
+          <div [hidden]="description.valid"
+               class="alert alert-danger">
+            Description is required
+          </div>
+        </div>
+        <br>
+
+      </div>
+      <div class="form-group">
+        <label for="sizeFrame">Size of Bicycle Frame</label>
+        <input type="number" class="form-control" id="sizeFrame"
+               [(ngModel)]="bike.sizeFrame" name="sizeFrame" #sizeFrame="ngModel">
+      </div>
+      <br>
+
+      <div class="form-group">
+        <label for="sizeWheel">Wheel Size</label>
+        <input type="number" class="form-control" id="sizeWheel"
+               [(ngModel)]="bike.sizeWheel" name="sizeWheel" #sizeWheel="ngModel">
+      </div>
+      <br>
+
+      <div class="form-group">
+        <label>Is Mountain Bike?</label><br>
+        <label class="radio-inline">
+          <input type="radio" [(ngModel)]="bike.isMTB" value="true" name="ismtb" required> Sim
+        </label>
+        <label class="radio-inline" style="margin-left: 10px;">
+          <input type="radio" [(ngModel)]="bike.isMTB" value="false" name="ismtb" required> Não
+        </label>
+        <div [hidden]="bike.isMTB" class="alert alert-danger">
+          This selection is required
+        </div>
+      </div>
+      <br>
+
+      <mat-form-field>
+        <mat-label>Date of Manufacture</mat-label>
+        <input matInput [matDatepicker]="picker"
+               required
+               [(ngModel)]="bike.createdDate" name="createdDate">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <br>
+      <br>
+
+      <button type="submit" class="btn btn-success" [disabled]="!update.form.valid">Update</button>
+
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+    </form>
+  </div>
+</div>

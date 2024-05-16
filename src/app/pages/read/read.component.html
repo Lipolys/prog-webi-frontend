@@ -1,1 +1,47 @@
-<p>read works!</p>
+<div class="container" [hidden]="submittedSearch">
+  <h1>Search a Bike</h1>
+  <ul>
+    <br>
+    <form  (ngSubmit)="onSubmitSearch()" #create="ngForm" class="d-flex" role="search" >
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+             [(ngModel)]="idToSearch" name="search" required>
+      <button class="btn btn-outline-success" type="submit" >Search</button>
+    </form>
+    <br>
+  </ul>
+</div>
+
+<div class="container" [hidden]="!submittedSearch">
+  <h1>Data Review</h1>
+  <section class="description">
+    <p></p>
+    <ul>
+      <div>
+        <div class="row">
+          <div class="col-xs-3">Model Number: {{ bike.partNumber }}</div>
+          <p></p>
+        </div>
+        <div class="row">
+          <div class="col-xs-3">Description: {{ bike.description }}</div>
+          <p></p>
+        </div>
+        <div class="row">
+          <div class="col-xs-3">Size of Bicycle Frame: {{ bike.sizeFrame }}</div>
+          <p></p>
+        </div>
+        <div class="row">
+          <div class="col-xs-3">Wheel Size: {{ bike.sizeWheel }}</div>
+          <p></p>
+        </div>
+        <div class="row">
+          <div class="col-xs-3">Is Mountain Bike?: {{ bike.isMTB }}</div>
+          <p></p>
+        </div>
+        <div class="row">
+          <div class="col-xs-3">Date of Manufacture: {{ bike.createdDate }}</div>
+          <p></p>
+        </div>
+      </div>
+    </ul>
+  </section>
+</div>
