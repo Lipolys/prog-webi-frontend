@@ -7,6 +7,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatNativeDateModule} from '@angular/material/core';
 import {BikeService} from "../../bike/bike.service";
+import {NgForOf, NgIf} from "@angular/common";
 
 
 
@@ -19,7 +20,9 @@ import {BikeService} from "../../bike/bike.service";
     MatFormFieldModule,
     MatInputModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    NgIf,
+    NgForOf
   ],
   providers: [
     MatDatepickerModule,
@@ -32,6 +35,11 @@ import {BikeService} from "../../bike/bike.service";
 export class CreateComponent {
   bike: Bike = new Bike();
   submitted: boolean = false;
+  bikeType?: string;
+  mountainBikeWheelSizes = [26, 27.5, 29];
+  mountainBikeFrameSizes = [14.5, 15, 15.5, 16, 16.5, 17, 17.5, 18, 18.5, 19, 19.5, 20, 20.5, 21];
+  speedBikeWheelSizes = [29, 27.5, 700];
+  speedBikeFrameSizes = [46, 48, 50, 52, 54, 56, 58, 59];
 
   constructor(
     private activateRouted: ActivatedRoute,
@@ -40,7 +48,10 @@ export class CreateComponent {
   ) {
   }
 
+
+
   onSubmit() {
+    this.bike.isMTB = this.bikeType === 'MTB';
     this.bikeService.save(this.bike)
       .subscribe(value => {
         console.log("Salvo:", JSON.stringify(value));
@@ -58,4 +69,5 @@ export class CreateComponent {
   }
 
   protected readonly ActivatedRoute = ActivatedRoute;
+
 }

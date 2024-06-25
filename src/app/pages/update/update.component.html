@@ -4,19 +4,21 @@
       <br>
       <h1>Update Bike {{idToUpdate}}</h1>
       <div class="form-group">
-        <label for="partNumber">Model Number</label>
-        <input type="number" class="form-control" id="partNumber"
-               required
-               [(ngModel)]="bike.partNumber" name="partNumber" #partNumber="ngModel">
-        <div [hidden]="partNumber.valid || !partNumber.touched"
-             class="alert alert-danger">
-          Model Number is required
+        <div>
+          <label for="partNumber">Model Number*</label>
+          <input type="number" class="form-control" id="partNumber"
+                 required
+                 [(ngModel)]="bike.partNumber" name="partNumber" #partNumber="ngModel" pattern="[0-9]*">
+          <div [hidden]="partNumber.valid || !partNumber.touched"
+               class="alert alert-danger">
+            Model Number is required
+          </div>
         </div>
         <br>
 
 
         <div class="form-group">
-          <label for="description">Description</label>
+          <label for="description">Description*</label>
           <input type="text" class="form-control" id="description"
                  required
                  [(ngModel)]="bike.description" name="description"  #description="ngModel">
@@ -26,54 +28,66 @@
           </div>
         </div>
         <br>
+        <br>
+        <mat-form-field>
+          <mat-label>Date of Manufacture</mat-label>
+          <input matInput [matDatepicker]="picker"
+                 required
+                 [(ngModel)]="bike.createdDate" name="createdDate">
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
 
-      </div>
-      <div class="form-group">
-        <label for="sizeFrame">Size of Bicycle Frame</label>
-        <input type="number" class="form-control" id="sizeFrame"
-               [(ngModel)]="bike.sizeFrame" name="sizeFrame" #sizeFrame="ngModel">
-      </div>
-      <br>
-
-      <div class="form-group">
-        <label for="sizeWheel">Wheel Size</label>
-        <input type="number" class="form-control" id="sizeWheel"
-               [(ngModel)]="bike.sizeWheel" name="sizeWheel" #sizeWheel="ngModel">
-      </div>
-      <br>
 
       <div class="form-group">
-        <label>Is Mountain Bike? (This Selection is Required)</label><br>
-        <label class="radio-inline">
-          <input type="radio" [(ngModel)]="bike.isMTB" [value]="true" name="ismtb" required [checked]="bike.isMTB"> Sim
-        </label>
-        <label class="radio-inline" style="margin-left: 10px;">
-          <input type="radio" [(ngModel)]="bike.isMTB" [value]="false" name="ismtb" required [checked]="!bike.isMTB"> Não
-        </label>
+        <p>Bike Type</p>
+        <input type="radio" id="mtb" name="bikeType" [(ngModel)]="bikeType" value='MTB'>
+        <label for="MTB">Mountain Bike</label><br>
+        <input type="radio" id="spd" name="bikeType" [(ngModel)]="bikeType" value='SPD'>
+        <label for="SPD">Speed Bike</label><br>
+      </div>
+      <br>
+
+      <div class="form-group" *ngIf="bikeType === 'MTB'">
+        <label for="MTBsizeFrame">Size of Bicycle Frame</label>
+        <select class="form-control" id="MTBsizeFrame" [(ngModel)]="bike.sizeFrame" name="sizeFrame">
+          <option *ngFor="let size of mountainBikeFrameSizes" [value]="size">{{size}}</option>
+        </select>
       </div>
 
-      <mat-form-field>
-        <mat-label>Date of Manufacture</mat-label>
-        <input matInput [matDatepicker]="picker"
-               required
-               [(ngModel)]="bike.createdDate" name="createdDate">
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-      <br>
-      <br>
+      <div class="form-group" *ngIf="bikeType === 'SPD'">
+        <label for="SPDsizeFrame">Size of Bicycle Frame</label>
+        <select class="form-control" id="SPDsizeFrame" [(ngModel)]="bike.sizeFrame" name="sizeFrame">
+          <option *ngFor="let size of speedBikeFrameSizes" [value]="size">{{size}}</option>
+        </select>
+      </div>
 
+      <div class="form-group" *ngIf="bikeType === 'MTB'">
+        <label for="MTBsizeWheel">Wheel Size</label>
+        <select class="form-control" id="MTBsizeWheel" [(ngModel)]="bike.sizeWheel" name="sizeWheel">
+          <option *ngFor="let size of mountainBikeWheelSizes" [value]="size">{{size}}</option>
+        </select>
+      </div>
 
-      <div class="selection-buttons">
-        <button type="submit" class="btn btn-success" [disabled]="!update.form.valid">Update</button>
-        <button type="button" class="btn btn-outline-secondary" routerLink=""> Exit </button>
+      <div class="form-group" *ngIf="bikeType === 'SPD'">
+        <label for="SPDsizeWheel">Wheel Size</label>
+        <select class="form-control" id="SPDsizeWheel" [(ngModel)]="bike.sizeWheel" name="sizeWheel">
+          <option *ngFor="let size of speedBikeWheelSizes" [value]="size">{{size}}</option>
+        </select>
       </div>
 
       <br>
+        <div class="selection-buttons">
+          <button type="submit" class="btn btn-success" [disabled]="!update.form.valid">Update</button>
+          <button type="button" class="btn btn-outline-secondary" routerLink=""> Exit </button>
+        </div>
+
       <br>
       <br>
       <br>
       <br>
+      <br>
+      </div>
     </form>
   </div>
 </div>

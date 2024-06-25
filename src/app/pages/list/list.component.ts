@@ -17,6 +17,7 @@ import jsPDF from 'jspdf';
 import html2canvas from "html2canvas";
 
 
+
 @Component({
   selector: 'app-list',
   standalone: true,
@@ -33,7 +34,7 @@ import html2canvas from "html2canvas";
     MatLabel,
     MatSuffix,
     ReactiveFormsModule,
-    MatNativeDateModule
+    MatNativeDateModule,
   ],
   providers: [
     MatDatepickerModule,
@@ -73,17 +74,24 @@ export class ListComponent {
   public exportAsPdf(): void {
     let data = this.content.nativeElement;
     html2canvas(data).then(canvas => {
-      // Few necessary setting options
       let imgWidth = 208;
       let pageHeight = 295;
       let imgHeight = canvas.height * imgWidth / canvas.width;
       let heightLeft = imgHeight;
 
       const contentDataURL = canvas.toDataURL('image/png')
-      let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF
+      let pdf = new jsPDF('p', 'mm', 'a4');
       let position = 0;
       pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)
-      pdf.save('BikeList.pdf'); // Generated PDF
+      heightLeft -= pageHeight;
+
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+      pdf.save('BikeList.pdf');
     });
   }
 }
