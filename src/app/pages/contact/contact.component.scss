@@ -55,3 +55,8 @@ h1 {
 .language-button:hover {
   background-color: #ddd;
 }
+
+.selection-buttons{
+  display: flex;
+  justify-content: space-between;
+}

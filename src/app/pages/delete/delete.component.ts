@@ -19,8 +19,6 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class DeleteComponent {
   bike: Bike = new Bike();
   idToDelete!: number;
-  submittedSearch: boolean = false;
-  submittedDelete: boolean = false;
   submittedConfirm: boolean = false;
 
   constructor(
@@ -28,15 +26,9 @@ export class DeleteComponent {
     private router: Router,
     private bikeService: BikeService
   ) {
-  }
-
-  onSubmitSearch() {
-    this.bikeService.getById(this.idToDelete).subscribe(value => {
-      this.bike = value;
-      this.submittedSearch = true;
-    } , error => {
-      console.log("Erro:", JSON.stringify(error));
-      alert(`Erro ao buscar o dados:${error.error}`);
+    this.activateRouted.params.subscribe(params => {
+      this.idToDelete = params['id'];
+      this.onSubmitDelete();
     });
   }
 

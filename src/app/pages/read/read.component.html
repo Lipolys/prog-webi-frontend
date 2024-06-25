@@ -2,46 +2,49 @@
   <h1>Search a Bike</h1>
   <ul>
     <br>
-    <form  (ngSubmit)="onSubmitSearch()" #create="ngForm" class="d-flex" role="search" >
+    <form  (ngSubmit)="onSubmitSearch()" class="d-flex" role="search" >
       <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
              [(ngModel)]="idToSearch" name="search" required>
-      <button class="btn btn-outline-success" type="submit" >Search</button>
+      <div class="selection-buttons">
+        <button class="btn btn-outline-success" type="submit" >Search</button>
+        <button class="btn btn-outline-secondary" routerLink="" >Exit</button>
+      </div>
     </form>
     <br>
   </ul>
 </div>
 
-<div class="container" [hidden]="!submittedSearch">
-  <h1>Data Review</h1>
+<<div class="container" [hidden]="!submittedSearch">
+  <h1 style="font-size: 2em; margin-bottom: 20px;">Data Review</h1>
   <section class="description">
-    <p></p>
-    <ul>
-      <div>
-        <div class="row">
-          <div class="col-xs-3">Model Number: {{ bike.partNumber }}</div>
-          <p></p>
+    <ul style="list-style-type: none; padding: 0;">
+      <div style="padding: 20px; background-color: #f8f9fa; border-radius: 5px;">
+        <div class="row" style="margin-bottom: 10px;">
+          <div class="col-xs-3"><strong>Model Number:</strong> {{ bike.partNumber }}</div>
         </div>
-        <div class="row">
-          <div class="col-xs-3">Description: {{ bike.description }}</div>
-          <p></p>
+        <div class="row" style="margin-bottom: 10px;">
+          <div class="col-xs-3"><strong>Description:</strong> {{ bike.description }}</div>
         </div>
-        <div class="row">
-          <div class="col-xs-3">Size of Bicycle Frame: {{ bike.sizeFrame }}</div>
-          <p></p>
+        <div class="row" style="margin-bottom: 10px;">
+          <div class="col-xs-3"><strong>Size of Bicycle Frame:</strong> {{ bike.sizeFrame }}</div>
         </div>
-        <div class="row">
-          <div class="col-xs-3">Wheel Size: {{ bike.sizeWheel }}</div>
-          <p></p>
+        <div class="row" style="margin-bottom: 10px;">
+          <div class="col-xs-3"><strong>Wheel Size:</strong> {{ bike.sizeWheel }}</div>
         </div>
-        <div class="row">
-          <div class="col-xs-3">Is Mountain Bike?: {{ bike.isMTB }}</div>
-          <p></p>
+        <div class="row" style="margin-bottom: 10px;">
+          <div class="col-xs-3"><strong>Is Mountain Bike?:</strong> {{ bike.isMTB }}</div>
         </div>
-        <div class="row">
-          <div class="col-xs-3">Date of Manufacture: {{ bike.createdDate }}</div>
-          <p></p>
+        <div class="row" style="margin-bottom: 10px;">
+          <div class="col-xs-3"><strong>Date of Manufacture:</strong> {{ bike.createdDate }}</div>
         </div>
       </div>
     </ul>
+    <div class="selection-buttons">
+      <div class="selection-buttons">
+        <button (click)="updateBike(bike.id)" class="btn btn-info">Update</button>
+        <button (click)="deleteBike(bike.id)" class="btn btn-danger">Delete</button>
+      </div>
+      <button class="btn btn-outline-secondary" routerLink="">Exit</button>
+    </div>
   </section>
 </div>

@@ -49,3 +49,8 @@ h1 {
 .description li {
   margin-bottom: 10px;
 }
+
+.selection-buttons{
+  display: flex;
+  justify-content: space-between;
+}

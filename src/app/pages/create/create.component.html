@@ -6,13 +6,15 @@
     <h1>Include Bike</h1>
       <br>
     <div class="form-group">
-      <label for="partNumber">Model Number</label>
-      <input type="number" class="form-control" id="partNumber"
-             required
-             [(ngModel)]="bike.partNumber" name="partNumber" #partNumber="ngModel">
-      <div [hidden]="partNumber.valid"
-           class="alert alert-danger">
-        Model Number is required
+      <div>
+        <label for="partNumber">Model Number</label>
+        <input type="number" class="form-control" id="partNumber"
+               required
+               [(ngModel)]="bike.partNumber" name="partNumber" #partNumber="ngModel" pattern="[0-9]*">
+        <div [hidden]="partNumber.valid || !partNumber.touched"
+             class="alert alert-danger">
+          Model Number is required
+        </div>
       </div>
       <br>
 
@@ -22,14 +24,13 @@
         <input type="text" class="form-control" id="description"
                required
                [(ngModel)]="bike.description" name="description"  #description="ngModel">
-        <div [hidden]="description.valid"
+        <div [hidden]="description.valid || !description.touched"
              class="alert alert-danger">
           Description is required
         </div>
       </div>
       <br>
 
-      </div>
       <div class="form-group">
         <label for="sizeFrame">Size of Bicycle Frame</label>
         <input type="number" class="form-control" id="sizeFrame"
@@ -45,16 +46,13 @@
       <br>
 
       <div class="form-group">
-        <label>Is Mountain Bike?</label><br>
+        <label>Is Mountain Bike? (This Selection is Required)</label><br>
         <label class="radio-inline">
-          <input type="radio" [(ngModel)]="bike.isMTB" value="true" name="ismtb" required> Sim
+          <input type="radio" [(ngModel)]="bike.isMTB" value="true" name="ismtb" required> Yes
         </label>
         <label class="radio-inline" style="margin-left: 10px;">
-          <input type="radio" [(ngModel)]="bike.isMTB" value="false" name="ismtb" required> Não
+          <input type="radio" [(ngModel)]="bike.isMTB" value="false" name="ismtb" required> No
         </label>
-        <div [hidden]="bike.isMTB" class="alert alert-danger">
-          This selection is required
-        </div>
       </div>
       <br>
 
@@ -66,10 +64,13 @@
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
+      </div>
       <br>
       <br>
-
-      <button type="submit" class="btn btn-success" [disabled]="!create.form.valid">Include</button>
+      <div class="selection-buttons">
+        <button type="submit" class="btn btn-success" [disabled]="!create.form.valid">Include</button>
+        <button type="button" class="btn btn-outline-secondary" routerLink=""> Exit </button>
+      </div>
 
       <br>
       <br>
@@ -105,18 +106,22 @@
       <div class="col-xs-3">Date of Manufacture</div>
       <div class="col-xs-9">{{ bike.createdDate }}</div>
     </div>
+    <br>
+    <div class="selection-buttons">
+      <button class="btn btn-success" (click)="newBike()">Include Another Bike</button>
+      <button class="btn btn-outline-secondary" routerLink="">Exit</button>
+    </div>
+
   </div>
 </div>
-<div>
-  <form>
-  </form>
-</div>
-<hr>
+
+
+
 <style>
-  .no-style .ng-valid {
+  .no-style{
     border-left: 1px  solid #CCC
   }
-  .no-style .ng-invalid {
+  .no-style{
     border-left: 1px  solid #CCC
   }
 </style>

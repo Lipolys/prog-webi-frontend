@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, ElementRef, ViewChild, OnInit, OnDestroy,} from '@angular/core';
 import {Router, RouterLink} from "@angular/router";
 import {NgForOf, NgIf} from "@angular/common";
 import { Bike } from "../../bike/bike";
@@ -12,7 +12,10 @@ import {
 } from "@angular/material/datepicker";
 import {MatFormField, MatLabel, MatSuffix} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
-import {MatNativeDateModule, provideNativeDateAdapter} from "@angular/material/core";
+import {MatNativeDateModule} from "@angular/material/core";
+import jsPDF from 'jspdf';
+import html2canvas from "html2canvas";
+
 
 @Component({
   selector: 'app-list',
@@ -39,16 +42,15 @@ import {MatNativeDateModule, provideNativeDateAdapter} from "@angular/material/c
   ],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss'
-})
+})  @ViewChild('content', { static: false })
+
 export class ListComponent {
   bikes: Bike[] = [];
   bike: Bike = new Bike();
-  submittedUpdate = false;
-  idAux!: number;
-
-  constructor(public bikeService: BikeService,
+  constructor(
+    public bikeService: BikeService,
+    public content: ElementRef,
   public router: Router) {
-
   }
 
   ngOnInit(): void {
@@ -58,34 +60,30 @@ export class ListComponent {
     });
   }
 
-  updateBike(bike: Bike): void {
-    this.submittedUpdate = true;
-    this.idAux = bike.id;
-    this.bike = bike;
-    }
-
   deleteBike(id: number): void {
-    if (confirm("Deseja realmente deletar esta bicicleta?")) {
-      this.bikeService.delete(id).subscribe(value => {
-        alert("Bicicleta deletada com sucesso!");
-        this.router.navigate(['']);
-      }, error => {
-        console.log("Erro:", JSON.stringify(error));
-        alert(`Erro ao deletar o dados:${error.error}`);
-      });
-    }
+    this.router.navigate(['/delete', id]);
+    this.ngOnInit();
   }
 
-  onSubmit() {
-    this.bikeService.save(this.bike)
-      .subscribe(value => {
-        console.log("Salvo:", JSON.stringify(value));
-        this.router.navigate(['']);
-        //alert("Salvo com sucesso!");
-      }, error => {
-        console.log("Erro" + JSON.stringify(error));
-        alert('Erro ao salvar:');
-      });
+  updateBike(id: number): void {
+    this.router.navigate(['/update', id]);
+    this.ngOnInit();
   }
 
+  public exportAsPdf(): void {
+    let data = this.content.nativeElement;
+    html2canvas(data).then(canvas => {
+      // Few necessary setting options
+      let imgWidth = 208;
+      let pageHeight = 295;
+      let imgHeight = canvas.height * imgWidth / canvas.width;
+      let heightLeft = imgHeight;
+
+      const contentDataURL = canvas.toDataURL('image/png')
+      let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF
+      let position = 0;
+      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)
+      pdf.save('BikeList.pdf'); // Generated PDF
+    });
+  }
 }

@@ -5,7 +5,7 @@ import {FormsModule} from "@angular/forms";
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatNativeDateModule, provideNativeDateAdapter} from '@angular/material/core';
+import {MatNativeDateModule} from '@angular/material/core';
 import {BikeService} from "../../bike/bike.service";
 
 
@@ -32,25 +32,22 @@ import {BikeService} from "../../bike/bike.service";
 
 export class UpdateComponent {
   bike: Bike = new Bike();
-  submittedSearch: boolean = false;
   idToUpdate!: number;
 
   constructor(
-    private bikeService: BikeService,
+    private activateRouted: ActivatedRoute,
     private router: Router,
-  ) { }
-
-  onSubmitSearch() {
+    private bikeService: BikeService
+  ) {
+    this.activateRouted.params.subscribe(params => {
+      this.idToUpdate = params['id'];
+    })
     this.bikeService.getById(this.idToUpdate).subscribe(value => {
       this.bike = value;
-    } , error => {
-      console.log("Erro:", JSON.stringify(error));
-      alert(`Erro ao buscar o dados:${error.error}`);
-    });
-    this.submittedSearch = true;
+    })
   }
 
-  onSubmit() {
+  onSubmitUpdate() {
     this.bikeService.save(this.bike)
       .subscribe(value => {
         console.log("Salvo:", JSON.stringify(value));

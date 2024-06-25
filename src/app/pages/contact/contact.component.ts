@@ -1,12 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {NgForOf} from "@angular/common";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-    imports: [
-        NgForOf,
-    ],
+  imports: [
+    NgForOf,
+    RouterLink,
+  ],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.scss'
 })

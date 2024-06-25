@@ -9,11 +9,11 @@ import {ReadComponent} from "./pages/read/read.component";
 
 
 export const routes: Routes = [
-  {path:'list', component: ListComponent},
+  {path:'', component: ListComponent},
   {path:'about', component: AboutComponent},
   {path:'contact', component: ContactComponent},
   {path:'create', component: CreateComponent},
-  {path:'update', component: UpdateComponent},
-  {path:'delete', component: DeleteComponent},
-  {path:'read', component: ReadComponent}
+  {path:'update/:id', component: UpdateComponent},
+  {path:'delete/:id', component: DeleteComponent},
+  {path:'read', component: ReadComponent},
 ];
