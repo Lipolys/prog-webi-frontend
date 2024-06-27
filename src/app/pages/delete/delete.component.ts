@@ -42,6 +42,8 @@ export class DeleteComponent {
         console.log("Erro:", JSON.stringify(error));
         alert(`Erro ao deletar o dados:${error.error}`);
       });
+    } else {
+      this.router.navigate(['']);
     }
   }
 }
