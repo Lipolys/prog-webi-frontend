@@ -5,5 +5,5 @@ export class Bike {
   sizeFrame?: number;
   sizeWheel?: number;
   isMTB!: boolean;
-  createdDate!: string;
+  manufacturedDate!: string;
 }

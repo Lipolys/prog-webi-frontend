@@ -39,7 +39,7 @@ export class UpdateComponent {
   bikeType: string = this.bike.isMTB ? 'MTB' : 'SPD';
   mountainBikeWheelSizes = [26, 27.5, 29];
   mountainBikeFrameSizes = [14.5, 15, 15.5, 16, 16.5, 17, 17.5, 18, 18.5, 19, 19.5, 20, 20.5, 21];
-  speedBikeWheelSizes = [29, 27.5, 700];
+  speedBikeWheelSizes = [29];
   speedBikeFrameSizes = [46, 48, 50, 52, 54, 56, 58, 59];
 
   constructor(
@@ -52,6 +52,7 @@ export class UpdateComponent {
     })
     this.bikeService.getById(this.idToUpdate).subscribe(value => {
       this.bike = value;
+      this.bikeType = this.bike.isMTB ? 'MTB' : 'SPD';
     })
   }
 

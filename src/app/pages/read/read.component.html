@@ -14,11 +14,14 @@
   </ul>
 </div>
 
-<<div class="container" [hidden]="!submittedSearch">
+<<div class="container" [hidden]="!submittedSearch" #readContent>
   <h1 style="font-size: 2em; margin-bottom: 20px;">Data Review</h1>
   <section class="description">
     <ul style="list-style-type: none; padding: 0;">
       <div style="padding: 20px; background-color: #f8f9fa; border-radius: 5px;">
+        <div class="row" style="margin-bottom: 10px;">
+          <div class="col-xs-3"><strong>ID:</strong> {{ bike.id }}</div>
+        </div>
         <div class="row" style="margin-bottom: 10px;">
           <div class="col-xs-3"><strong>Model Number:</strong> {{ bike.partNumber }}</div>
         </div>
@@ -35,7 +38,7 @@
           <div class="col-xs-3"><strong>Is Mountain Bike?:</strong> {{ bike.isMTB }}</div>
         </div>
         <div class="row" style="margin-bottom: 10px;">
-          <div class="col-xs-3"><strong>Date of Manufacture:</strong> {{ bike.createdDate }}</div>
+          <div class="col-xs-3"><strong>Date of Manufacture:</strong> {{ bike.manufacturedDate }}</div>
         </div>
       </div>
     </ul>
@@ -44,7 +47,11 @@
         <button (click)="updateBike(bike.id)" class="btn btn-info">Update</button>
         <button (click)="deleteBike(bike.id)" class="btn btn-danger">Delete</button>
       </div>
-      <button class="btn btn-outline-secondary" routerLink="">Exit</button>
+      <div class="selection-buttons">
+        <button (click)="exportAsPdf()" class="btn btn-outline-secondary">Export as PDF</button>
+        <button class="btn btn-outline-secondary" routerLink="">Exit</button>
+      </div>
+
     </div>
   </section>
 </div>

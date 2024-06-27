@@ -35,17 +35,16 @@
         <mat-label>Date of Manufacture</mat-label>
         <input matInput [matDatepicker]="picker"
                required
-               [(ngModel)]="bike.createdDate" name="createdDate">
+               [(ngModel)]="bike.manufacturedDate" name="createdDate">
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
-
       <div class="form-group">
         <p>Bike Type</p>
-        <input type="radio" id="mtb" name="bikeType" [(ngModel)]="bikeType" value='MTB'>
+        <input type="radio" id="mtb" name="bikeType" [(ngModel)]="bikeType" value='MTB' required>
         <label for="MTB">Mountain Bike</label><br>
-        <input type="radio" id="spd" name="bikeType" [(ngModel)]="bikeType" value='SPD'>
+        <input type="radio" id="spd" name="bikeType" [(ngModel)]="bikeType" value='SPD' required>
         <label for="SPD">Speed Bike</label><br>
       </div>
       <br>
@@ -93,37 +92,36 @@
     </form>
   </div>
 
+
   <div [hidden]="!submitted">
-    <h2>Data review:</h2>
-    <div class="row">
-      <div class="col-xs-3">Model Number</div>
-      <div class="col-xs-9">{{ bike.partNumber }}</div>
-    </div>
-    <div class="row">
-      <div class="col-xs-3">Description</div>
-      <div class="col-xs-9">{{ bike.description }}</div>
-    </div>
-    <div class="row">
-      <div class="col-xs-3">Size of Bicycle Frame</div>
-      <div class="col-xs-9">{{ bike.sizeFrame }}</div>
-    </div>
-    <div class="row">
-      <div class="col-xs-3">Wheel Size</div>
-      <div class="col-xs-9">{{ bike.sizeWheel }}</div>
-    </div>
-    <div class="row">
-      <div class="col-xs-3">Is Mountain Bike?</div>
-      <div class="col-xs-9">{{ bike.isMTB }}</div>
-    </div>
-    <div class="row">
-      <div class="col-xs-3">Date of Manufacture</div>
-      <div class="col-xs-9">{{ bike.createdDate }}</div>
-    </div>
+    <section class="description">
+      <ul style="list-style-type: none; padding: 0;">
+        <div style="padding: 20px; background-color: #f8f9fa; border-radius: 5px;">
+          <div class="row" style="margin-bottom: 10px;">
+            <div class="col-xs-3"><strong>Model Number:</strong> {{ bike.partNumber }}</div>
+          </div>
+          <div class="row" style="margin-bottom: 10px;">
+            <div class="col-xs-3"><strong>Description:</strong> {{ bike.description }}</div>
+          </div>
+          <div class="row" style="margin-bottom: 10px;">
+            <div class="col-xs-3"><strong>Size of Bicycle Frame:</strong> {{ bike.sizeFrame }}</div>
+          </div>
+          <div class="row" style="margin-bottom: 10px;">
+            <div class="col-xs-3"><strong>Wheel Size:</strong> {{ bike.sizeWheel }}</div>
+          </div>
+          <div class="row" style="margin-bottom: 10px;">
+            <div class="col-xs-3"><strong>Is Mountain Bike?:</strong> {{ bike.isMTB }}</div>
+          </div>
+          <div class="row" style="margin-bottom: 10px;">
+            <div class="col-xs-3"><strong>Date of Manufacture:</strong> {{ bike.manufacturedDate }}</div>
+          </div>
+        </div>
+      </ul>
     <br>
     <div class="selection-buttons">
-      <button class="btn btn-success" (click)="newBike()">Include Another Bike</button>
+      <button class="btn btn-success" (click)="newBike(create)">Include Another Bike</button>
       <button class="btn btn-outline-secondary" routerLink="">Exit</button>
     </div>
-
+    </section>
   </div>
 </div>
