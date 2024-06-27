@@ -57,6 +57,7 @@ export class UpdateComponent {
   }
 
   onSubmitUpdate() {
+    this.bike.isMTB = !!this.bikeType;
     this.bikeService.save(this.bike)
       .subscribe(value => {
         console.log("Salvo:", JSON.stringify(value));
